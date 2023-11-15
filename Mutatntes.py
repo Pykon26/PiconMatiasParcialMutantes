@@ -1,7 +1,3 @@
-#String[] dna = {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
-dna = [
-
-    ]
 
 def isMutant(dna):
     if (verificarColumna(dna) + verificarFila(dna) + verificarDiagonalPrincipal(dna) + verificarDiagonalInversa (dna))> 2:
@@ -29,10 +25,6 @@ def verificarColumna(dna):
     for j in range(0,len(dna[0][0])):
         cont = 1
         for i in range(0,len(dna)-1):
-                print(dna[i][0][j])
-                print("-------------")
-                print(dna[i+1][0][j])
-                print("   ")
                 if dna[i][0][j] == dna[i+1][0][j]:
                         cont+=1
                 else:
@@ -75,39 +67,6 @@ def verificarDiagonalInversa(dna):
 
     return mutantes
 
-def verificarDiagonales(dna):
-    n = len(dna)
-    mutantes = 0
-
-    # Diagonales de izquierda a derecha
-    for fila in range(0,5):
-        for columna in range(1 - fila, 3):
-            cont = 1
-            for i in range(n - max(fila, columna) - 1):
-                if dna[fila + i][0][columna + i] == dna[fila + i + 1][0][columna + i + 1]:
-                    cont += 1
-                    if cont >= 4:
-                        mutantes += 1
-                        break
-                else:
-                    cont = 1
-
-    # Diagonales de derecha a izquierda
-    # Comienzan en (0,3), (0,4), (1,5), y (2,5)
-    for fila in range(2):
-        for columna in range(3 + fila, 6):
-            cont = 1
-            for i in range(min(columna, n - 1 - fila)):
-                if dna[fila + i][0][columna - i] == dna[fila + i + 1][0][columna - i - 1]:
-                    cont += 1
-                    if cont >= 4:
-                        mutantes += 1
-                        break
-                else:
-                    cont = 1
-
-    return mutantes
-
 def mostrarArray(dna):
     for i in range(0,len(dna)):
         print (dna[i][0])
@@ -125,6 +84,7 @@ def validarLetras(secuenciaADN):
 
 
 while True:
+    dna = []
     print()
     print("---------------MUTANTES---------------")
     for i in range(0,6):
@@ -132,14 +92,14 @@ while True:
         secuencia= input(f"Ingresar la secuencia de ADN 6 valores A T C G (sin espacios) N° {i+1} ")
         while(not validarLetras(secuencia)):
             secuencia = input("Ingrese nuevamente la secuencia de ADN  ")
-        secuenciaADN.append(secuencia.upper)
+        secuenciaADN.append(secuencia.upper())
         dna.append(secuenciaADN)
         secuenciaADN=[]
 
     print("Vamos a analizar su secuencia de ADN")
     mostrarArray(dna)
     print("---------------LA PERSONA ES--------------")
-    print("La persona es Mutante" if isMutant else "La persona no es Mutante")
+    print("La persona es Mutante" if isMutant(dna) else "La persona no es Mutante")
     otra_entrada = input("\n¿Desea ingresar otra cadena de ADN? (s/n): ")
     if otra_entrada.lower() != 's':
         print()
